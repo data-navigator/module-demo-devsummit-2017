@@ -1,18 +1,16 @@
-Professional Python GIS Development with ArcGIS Pro
-===================================================
+Deploying Geoprocessing Tools As Python Modules
+===============================================
 
 ### Clinton Dow
-### GeoPython 2017
+### Esri Developer Summit 2017
 
 **[View the Slides]()**
 
-**[
-Download High Quality Version (PDF, 4MB)
-]()**
 
 Description
 -----------
-
+Brief Tech session on utilizing Python modules when writing Geoprocessing 
+tools with ArcPy
 
 
 Building
