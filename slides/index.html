@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="reveal.js/favicon.ico">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/esri-uc-2017.css" id="theme">
+  <link rel="stylesheet" href="src/uc-custom.css"/>
+
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="reveal.js/lib/css/solarized_dark.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section class="slide level2">
+
+<section data-background="../img/bg_title.jpg" ">
+<h1>
+Deploying Geoprocessing Tools As Python Modules
+</h1>
+<br>
+<h2>
+Clinton Dow
+</h2>
+</section>
+</section>
+<section><section id="what-is-a-python-module" class="titleslide slide level1" data-background="../img/bg_right.jpg"><h1>What is a Python Module?</h1></section><section id="python-modules" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>Python Modules</h2>
+<ul>
+<li>A module is a Python file ending in .py</li>
+<li>Groups related functions, classes and metadata</li>
+<li>Python Naming Convention (PEP8)
+<ul>
+<li>lower_case_name_with_underscores</li>
+</ul></li>
+<li>A python package is composed of several modules
+<ul>
+<li>A python package is a folder containing <strong>init</strong>.py</li>
+<li>Groups modules with related or complimentary concepts</li>
+</ul></li>
+</ul>
+<figure>
+<img src="../img/folders.png" class="tight" />
+</figure>
+</section><section id="import-statement" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>Import Statement</h2>
+<ul>
+<li>Pulls the functions in an imported module into the globals() namespace
+<ul>
+<li>These become accessible ‘globally’ within that Python process</li>
+<li>Alias given at import time only accessible within the calling module</li>
+<li>Ie: ‘import arcpy’
+<ul>
+<li>Can type arcpy.member_name only within the importing module</li>
+<li>If imported in a second module, there is no load time</li>
+</ul></li>
+</ul></li>
+<li>Module Objects
+<ul>
+<li>Reference objects to the imported module’s collection of function bytecode</li>
+<li>Define what is visible to consumers via <strong>all</strong> = [] list of strings</li>
+<li>Used by most ‘intellisense’ style auto-complete</li>
+<li>Currently arcpy.da does NOT have an <strong>all</strong> therefore it does not autocomplete</li>
+</ul></li>
+</ul>
+</section><section id="importlib" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>importlib</h2>
+<ul>
+<li>Introduced in Python 3.1
+<ul>
+<li>Deprecates the ‘imp’ module</li>
+</ul></li>
+<li>Importlib.import_module(‘module_name’) will return a module object
+<ul>
+<li>Explore modules by assigning the module object and looking at it’s dir()</li>
+<li>dir() lists all members in a module (including _private members)
+<ul>
+<li>Functions/Classes/Variables with a leading _</li>
+<li>Not imported with ‘import *’ – unless added explicitly to <strong>all</strong></li>
+</ul></li>
+</ul></li>
+</ul>
+<figure>
+<img src="../img/pythonwindow.png" class="tight" />
+</figure>
+</section><section id="importing-best-practices" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>Importing Best Practices</h2>
+<ul>
+<li>Break functionality into small modules, import the finest grain of functionality</li>
+<li>Control loading of multiple modules via <strong>init</strong>.py in a Package</li>
+<li>Do not use ‘from library import *’ in modules designed to be consumed
+<ul>
+<li>May cause namespace collisions
+<ul>
+<li>Two members from different modules with the same name</li>
+</ul></li>
+<li>Avoid by importing explicitly
+<ul>
+<li>‘from library import member_name’</li>
+</ul></li>
+<li>Correct namespace collisions using as keyword
+<ul>
+<li>‘from library import member_name as unique_member_name’</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="importing-best-practices-1" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>Importing Best Practices</h2>
+<ul>
+<li>Use importlib to access module objects
+<ul>
+<li>Useful for ‘lazy loading’ of specific modules</li>
+<li>Also for conditional loading of specific modules</li>
+</ul></li>
+<li>Liberal use of _private variable names
+<ul>
+<li>Hides most unwanted access to members</li>
+<li>Impossible to completely hide a member in Python</li>
+</ul></li>
+<li>Concise import statements
+<ul>
+<li>Be mindful of namespace collisions both down and upstream</li>
+</ul></li>
+</ul>
+<figure>
+<img src="../img/collision.png" class="tight" />
+</figure>
+</section></section>
+<section><section id="why-you-should-care" class="titleslide slide level1" data-background="../img/bg_right.jpg"><h1>Why you should care</h1></section><section id="code-reuse" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>Code Reuse</h2>
+<ul>
+<li>Modular code can be consumed in many places
+<ul>
+<li>Write and test code in one place</li>
+<li>Avoid duplicating functions across tools</li>
+</ul></li>
+<li>Regularly refactor code to facilitate reuse
+<ul>
+<li>View code as layers of functionality
+<ul>
+<li>Data Model</li>
+<li>Functional Model</li>
+<li>View Model</li>
+<li>View</li>
+</ul></li>
+</ul></li>
+<li>Decreases time, money and effort spent in the future
+<ul>
+<li>Ease of use</li>
+<li>‘Self Documenting’</li>
+<li>Don’t reinvent the wheel</li>
+</ul></li>
+</ul>
+</section><section id="testability" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>Testability</h2>
+<ul>
+<li>Testing smaller increments of functionality in modules
+<ul>
+<li>Focused testing</li>
+<li>Limited exposure to side-effects from other code</li>
+<li>Easy-to-follow debugging experience</li>
+</ul></li>
+<li>‘Unit Tests’
+<ul>
+<li>The smallest units of code within the module</li>
+<li>Should only have one job with defined edges
+<ul>
+<li>‘edge cases’ aka functional boundaries</li>
+</ul></li>
+</ul></li>
+<li>‘Integration Tests’
+<ul>
+<li>Interoperation between each function in multiple modules</li>
+<li>Harder to identify bugs</li>
+<li>More involved debugging process</li>
+</ul></li>
+</ul>
+</section><section id="interchangeability" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>Interchangeability</h2>
+<ul>
+<li>Smaller units of code are easier to replace
+<ul>
+<li>Improved method</li>
+<li>Updating variable names</li>
+</ul></li>
+<li>Also easier to understand
+<ul>
+<li>Reading ‘War and Peace’ vs. Reading several small books</li>
+</ul></li>
+<li>Quickly prototype changes
+<ul>
+<li>Create a test version with a module replaced</li>
+</ul></li>
+<li>Similar to building something with Lego vs. Concrete</li>
+</ul>
+<p><img src="../img/tome.jpg" class="tight" /> <img src="../img/books.png" class="tight" /></p>
+</section><section id="multiple-views" class="slide level2" data-background="../img/bg_left.jpg">
+<h2>Multiple ‘Views’</h2>
+<ul>
+<li>Functionality like arcpy.GetParameter() in separate file from logic</li>
+<li>Consume modularized ArcPy code:
+<ul>
+<li>.tbx</li>
+<li>.pyt</li>
+<li>Python Window</li>
+<li>Command Line</li>
+</ul></li>
+<li>Only write the tool one time</li>
+<li>Toolboxes provide different validation functionality
+<ul>
+<li>.tbx through the Geoprocessing pane in application</li>
+<li>.pyt through python code in the toolbox file</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="thank-you-questionscomments-cdowesri.com" class="titleslide slide level1" data-background="../img/bg_title.jpg"><h1>Thank you!! Questions/Comments?? cdow@esri.com</h1></section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display a presentation progress bar
+        progress: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
