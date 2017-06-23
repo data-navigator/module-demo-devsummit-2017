@@ -1,4 +1,4 @@
-<section data-background="img/bg_title.jpg"">
+<section data-background="img/bg_title.jpg">
 <h1>Deploying Geoprocessing Tools As Python Modules</h1>
 <br>
 <h2>Clinton Dow</h2>
