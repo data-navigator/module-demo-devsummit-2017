@@ -4,7 +4,7 @@ Deploying Geoprocessing Tools As Python Modules
 ### Clinton Dow
 ### Esri Developer Summit 2017
 
-**[View the Slides]()**
+**[View the Slides](https://data-navigator.github.io/module-demo-devsummit-2017/#/)**
 
 
 Description

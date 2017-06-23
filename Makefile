@@ -7,7 +7,7 @@ public_loc = https://4326.us/esri/$(short)
 slide_dir = $(shell pwd)
 
 all:
-	pandoc -t revealjs -s slides.md -V controls=false -V progress=true -V history=true -V center=true -V transition=slide -V theme=$(theme) --css uc-custom.css --template=src/template.revealjs --highlight-style=zenburn --slide-level 2 -S -o docs/index.html
+	pandoc -t revealjs -s slides.md -V controls=false -V progress=true -V history=true -V center=true -V transition=slide -V theme=$(theme) --css style.css --template=src/template.revealjs --highlight-style=zenburn --slide-level 2 -S -o docs/index.html
 
 check:
 	linkchecker --check-extern index.html
