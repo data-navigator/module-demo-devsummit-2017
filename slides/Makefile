@@ -7,13 +7,13 @@ public_loc = https://4326.us/esri/$(short)
 slide_dir = $(shell pwd)
 
 all:
-	pandoc -t revealjs -s slides.md -V controls=false -V progress=true -V history=true -V center=true -V transition=slide -V theme=$(theme) --css src/uc-custom.css --template=src/$(event).revealjs --highlight-style=zenburn --slide-level 2 -S -o index.html
+	pandoc -t revealjs -s slides.md -V controls=false -V progress=true -V history=true -V center=true -V transition=slide -V theme=$(theme) --css src/uc-custom.css --template=src/$(event).revealjs --highlight-style=zenburn --slide-level 2 -S -o ../docs/index.html
 
 check:
 	linkchecker --check-extern index.html
 
 pdf:
-	pandoc -o $(event)-$(deck)-presentation-handout.pdf -V fontsize=12pt -V mainfont=Calibri --latex-engine=xelatex slides.md
+	pandoc -o ../docs/$(event)-$(deck)-presentation-handout.pdf -V fontsize=12pt -V mainfont=Calibri --latex-engine=xelatex slides.md
 
 fullpdf:
 # decktape can't scrape HTTPS URIs with a relative path, swich directories.
