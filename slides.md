@@ -1,13 +1,13 @@
-<section data-background="../img/bg_title.jpg"">
+<section data-background="img/bg_title.jpg"">
 <h1>Deploying Geoprocessing Tools As Python Modules</h1>
 <br>
 <h2>Clinton Dow</h2>
 </section>
 
-What is a Python Module? {data-background="../img/bg_right.jpg"}
+What is a Python Module? {data-background="img/bg_right.jpg"}
 ============================================================
 
-Python Modules {data-background="../img/bg_left.jpg"}
+Python Modules {data-background="img/bg_left.jpg"}
 --------------------------------------------------------------------
 
 - A module is a Python file ending in .py
@@ -18,10 +18,10 @@ Python Modules {data-background="../img/bg_left.jpg"}
     - A python package is a folder containing __init__.py
     - Groups modules with related or complimentary concepts
 
-![](../img/folders.png){class="tight"}
+![](img/folders.png){class="tight"}
 
 
-Import Statement {data-background="../img/bg_left.jpg"}
+Import Statement {data-background="img/bg_left.jpg"}
 ---------------------------------------------------------------------------------------------------------------------
 
 - Pulls the functions in an imported module into the globals() namespace
@@ -39,7 +39,7 @@ Import Statement {data-background="../img/bg_left.jpg"}
     autocomplete
 
 
-importlib {data-background="../img/bg_left.jpg"}
+importlib {data-background="img/bg_left.jpg"}
 ------------------------------------------------------------------------------------------------------
 
 - Introduced in Python 3.1
@@ -50,10 +50,10 @@ importlib {data-background="../img/bg_left.jpg"}
         - Functions/Classes/Variables with a leading _
         - Not imported with ‘import *’ – unless added explicitly to __all__
 
-![](../img/pythonwindow.png){class="tight"} 
+![](img/pythonwindow.png){class="tight"} 
 
 
-Importing Best Practices {data-background="../img/bg_left.jpg"}
+Importing Best Practices {data-background="img/bg_left.jpg"}
 ------------------------------------------------------------------------
 
 - Break functionality into small modules, import the finest grain of 
@@ -68,7 +68,7 @@ functionality
         - ‘from library import member_name as unique_member_name’
 
 
-Importing Best Practices {data-background="../img/bg_left.jpg"}
+Importing Best Practices {data-background="img/bg_left.jpg"}
 ------------------------------------------------------------------------
 
 - Use importlib to access module objects
@@ -80,13 +80,13 @@ Importing Best Practices {data-background="../img/bg_left.jpg"}
 - Concise import statements 
     - Be mindful of namespace collisions both down and upstream
     
-![](../img/collision.jpg){class="tight"}
+![](img/collision.jpg){class="tight"}
 
 
-How do Modules help? {data-background="../img/bg_right.jpg"}
+How do Modules help? {data-background="img/bg_right.jpg"}
 ============================================================
 
-Code Reuse  {data-background="../img/bg_left.jpg"}
+Code Reuse  {data-background="img/bg_left.jpg"}
 ---------------------------------------------------------------
 
 - Modular code can be consumed in many places
@@ -104,7 +104,7 @@ Code Reuse  {data-background="../img/bg_left.jpg"}
     - Don’t reinvent the wheel
     
     
-Testability  {data-background="../img/bg_left.jpg"}
+Testability  {data-background="img/bg_left.jpg"}
 ---------------------------------------------------------------
 
 - Testing smaller increments of functionality in modules
@@ -121,7 +121,7 @@ Testability  {data-background="../img/bg_left.jpg"}
     - More involved debugging process
 
 
-Interchangeability  {data-background="../img/bg_left.jpg"}
+Interchangeability  {data-background="img/bg_left.jpg"}
 ---------------------------------------------------------------
 
 - Smaller units of code are easier to replace
@@ -133,11 +133,11 @@ Interchangeability  {data-background="../img/bg_left.jpg"}
     - Create a test version with a module replaced
 - Similar to building something with Lego vs. Concrete
 
-![](../img/tome.jpg){class="tight"}
-![](../img/books.png){class="tight"}
+![](img/tome.jpg){class="tight"}
+![](img/books.png){class="tight"}
 
 
-Multiple 'Views'  {data-background="../img/bg_left.jpg"}
+Multiple 'Views'  {data-background="img/bg_left.jpg"}
 ---------------------------------------------------------------
 
 - Functionality like arcpy.GetParameter() in separate file from logic
@@ -152,5 +152,5 @@ Multiple 'Views'  {data-background="../img/bg_left.jpg"}
     - .pyt through python code in the toolbox file
 
 
-Thank you!! Questions/Comments?? cdow@esri.com {data-background="../img/bg_title.jpg"}
+Thank you!! Questions/Comments?? cdow@esri.com {data-background="img/bg_title.jpg"}
 ==============================================================================================
